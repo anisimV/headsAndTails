@@ -1,9 +1,11 @@
 <?php
 
 class Game {
-    protected $player1;
-    protected $player2;
-    protected $flips = 1; // Количество подбрасываний монеты
+    public $player1;
+    public $player2;
+    public $flips = 1; // Количество подбрасываний монеты
+
+    public $gameOver = false;
 
     public function __construct(Player $player1, Player $player2)
     {
@@ -17,12 +19,12 @@ class Game {
     }
 // Начинает игру, выводит шансы каждого игрока и запускает процесс игры
     public function start()
-    {
+    {/*
         echo <<<EOT
             {$this->player1->name} шанс: {$this->player1->odds($this->player2)}
             {$this->player2->name} шанс: {$this->player2->odds($this->player1)}
-        EOT;
-
+        EOT;*/
+        $_SESSION['game'] = $this;
         $this->play();
     }
 // Запускает процесс игры
@@ -37,6 +39,7 @@ class Game {
             }
 
             if($this->player1->bankruptcy() || $this->player2->bankruptcy()) {
+                $this->gameOver = true;
                 return $this->end();
             }
 
@@ -52,8 +55,7 @@ class Game {
 // Завершает игру и выводит информацию о результатах
     public function end()
     {
-        echo <<<EOT
-
+        /*echo <<<EOT
 
             Конец игры:
 
@@ -65,6 +67,6 @@ class Game {
 
             Количество подбрасываний: $this->flips
 
-        EOT;
+        EOT;*/
     }
 }
